@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meri Asha | AI Voice Assistant</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8f7;
+            color: #263238;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #167c80;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #455a64;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #167c80;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            padding: 55px 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .title h1 {
+            font-size: 36px;
+            color: #164e52;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #607d8b;
+            line-height: 1.6;
+        }
+
+        /* ASSISTANT CARD */
+
+        .assistant-card {
+            background: white;
+            border-radius: 22px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .assistant-icon {
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            border-radius: 50%;
+            background: #e1f2f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+
+        .assistant-card h2 {
+            margin-top: 20px;
+            color: #164e52;
+        }
+
+        .status {
+            margin-top: 10px;
+            color: #78909c;
+            font-size: 14px;
+        }
+
+        /* CHAT */
+
+        .chat-box {
+            margin-top: 30px;
+            text-align: left;
+            background: #f4f8f7;
+            border-radius: 14px;
+            padding: 20px;
+            min-height: 150px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .bot {
+            background: #e1f2f1;
+        }
+
+        .user {
+            background: white;
+            border: 1px solid #e0e0e0;
+        }
+
+        /* VOICE BUTTON */
+
+        .voice-button {
+            margin-top: 30px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            background: #167c80;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .voice-button:hover {
+            background: #12676a;
+            transform: scale(1.05);
+        }
+
+        .voice-button.listening {
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                box-shadow: 0 0 0 0 rgba(22,124,128,0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(22,124,128,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(22,124,128,0);
+            }
+
+        }
+
+        .hint {
+            margin-top: 15px;
+            color: #78909c;
+            font-size: 13px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #90a4ae;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+
+            nav {
+                display: none;
+            }
+
+            .assistant-card {
+                padding: 25px;
+            }
+
+            .title h1 {
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🌿 Meri Asha
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Dashboard
+        </a>
+
+        <a href="/assessment">
+            Assessment
+        </a>
+
+        <a href="/analytics">
+            Analytics
+        </a>
+
+        <a href="/assistant">
+            Voice Assistant
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="title">
+
+        <h1>
+            AI Voice Assistant
+        </h1>
+
+        <p>
+            Speak naturally and provide your health information.
+            Meri Asha will extract the information and prepare
+            it for AI-based risk prediction.
+        </p>
+
+    </div>
+
+
+    <div class="assistant-card">
+
+
+        <div class="assistant-icon">
+            🎤
+        </div>
+
+
+        <h2>
+            Hello! I'm Meri Asha
+        </h2>
+
+
+        <div class="status" id="status">
+            Tap the microphone and start speaking.
+        </div>
+
+
+        <div class="chat-box" id="chatBox">
+
+            <div class="message bot">
+
+                👋 Hello! Please tell me your age, blood pressure,
+                blood sugar, temperature and heart rate.
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="voice-button"
+            id="voiceButton"
+            onclick="startListening()">
+
+            🎤
+
+        </button>
+
+
+        <div class="hint">
+
+            Example:
+
+            <strong>
+                "I am 25 years old, my blood pressure is 120 over 80,
+                blood sugar is 7, temperature is 98 and heart rate is 75."
+            </strong>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    © 2026 Meri Asha · AI-Powered Maternal Health Support
+
+</footer>
+
+
+<script>
+
+    const statusText = document.getElementById("status");
+
+    const chatBox = document.getElementById("chatBox");
+
+    const voiceButton = document.getElementById("voiceButton");
+
+
+    /* ADD MESSAGE */
+
+    function addMessage(text, type) {
+
+        const message = document.createElement("div");
+
+        message.className = "message " + type;
+
+        message.innerText = text;
+
+        chatBox.appendChild(message);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+    }
+
+
+    /* START VOICE RECOGNITION */
+
+    function startListening() {
+
+        const SpeechRecognition =
+            window.SpeechRecognition ||
+            window.webkitSpeechRecognition;
+
+
+        if (!SpeechRecognition) {
+
+            statusText.innerText =
+                "Voice recognition is not supported in this browser.";
+
+            return;
+
+        }
+
+
+        const recognition = new SpeechRecognition();
+
+
+        recognition.lang = "en-IN";
+
+        recognition.interimResults = false;
+
+        recognition.continuous = false;
+
+
+        recognition.start();
+
+
+        voiceButton.classList.add("listening");
+
+        statusText.innerText = "🎧 Listening...";
+
+
+        recognition.onresult = function(event) {
+
+            const transcript =
+                event.results[0][0].transcript;
+
+
+            addMessage(transcript, "user");
+
+
+            statusText.innerText =
+                "🧠 Understanding your information...";
+
+
+            extractHealthData(transcript);
+
+        };
+
+
+        recognition.onerror = function() {
+
+            statusText.innerText =
+                "Sorry, I couldn't hear that. Please try again.";
+
+            voiceButton.classList.remove("listening");
+
+        };
+
+
+        recognition.onend = function() {
+
+            voiceButton.classList.remove("listening");
+
+        };
+
+    }
+
+
+    /* EXTRACT HEALTH DATA */
+
+    function extractHealthData(text) {
+
+        const lowerText = text.toLowerCase();
+
+
+        /* AGE */
+
+        const ageMatch =
+            lowerText.match(
+                /(\d+)\s*(years old|year old|years|year)/
+            );
+
+
+        const age =
+            ageMatch ? ageMatch[1] : null;
+
+
+        /* BLOOD PRESSURE */
+
+        const bpMatch =
+            lowerText.match(
+                /(\d{2,3})\s*(over|by|\/)\s*(\d{2,3})/
+            );
+
+
+        const systolic =
+            bpMatch ? bpMatch[1] : null;
+
+
+        const diastolic =
+            bpMatch ? bpMatch[3] : null;
+
+
+        /* BLOOD SUGAR */
+
+        const sugarMatch =
+            lowerText.match(
+                /(blood sugar|sugar|bs)\s*(is|of|around|at)?\s*(\d+(\.\d+)?)/
+            );
+
+
+        const bs =
+            sugarMatch ? sugarMatch[3] : null;
+
+
+        /* TEMPERATURE */
+
+        const tempMatch =
+            lowerText.match(
+                /(temperature|temp)\s*(is|of|around|at)?\s*(\d+(\.\d+)?)/
+            );
+
+
+        const bodyTemp =
+            tempMatch ? tempMatch[3] : null;
+
+
+        /* HEART RATE */
+
+        const hrMatch =
+            lowerText.match(
+                /(heart rate|pulse)\s*(is|of|around|at)?\s*(\d+)/
+            );
+
+
+        const heartRate =
+            hrMatch ? hrMatch[3] : null;
+
+
+        /* CHECK IF ALL VALUES FOUND */
+
+        if (
+            age &&
+            systolic &&
+            diastolic &&
+            bs &&
+            bodyTemp &&
+            heartRate
+        ) {
+
+            showExtractedData(
+                age,
+                systolic,
+                diastolic,
+                bs,
+                bodyTemp,
+                heartRate
+            );
+
+        }
+
+        else {
+
+            addMessage(
+                "I couldn't identify all six health parameters. Please try saying your age, blood pressure, blood sugar, temperature and heart rate clearly.",
+                "bot"
+            );
+
+
+            statusText.innerText =
+                "Please try again.";
+
+        }
+
+    }
+
+
+    /* SHOW EXTRACTED VALUES */
+
+    function showExtractedData(
+        age,
+        systolic,
+        diastolic,
+        bs,
+        bodyTemp,
+        heartRate
+    ) {
+
+
+        addMessage(
+            "I understood the following health information:",
+            "bot"
+        );
+
+
+        const dataMessage =
+            document.createElement("div");
+
+
+        dataMessage.className =
+            "message bot";
+
+
+        dataMessage.innerHTML = `
+
+            <strong>Health Parameters</strong>
+
+            <br><br>
+
+            Age:
+            ${age} years
+
+            <br>
+
+            Blood Pressure:
+            ${systolic}/${diastolic} mmHg
+
+            <br>
+
+            Blood Sugar:
+            ${bs}
+
+            <br>
+
+            Temperature:
+            ${bodyTemp} °F
+
+            <br>
+
+            Heart Rate:
+            ${heartRate} BPM
+
+            <br><br>
+
+            <button
+                onclick="predictHealth(
+                    '${age}',
+                    '${systolic}',
+                    '${diastolic}',
+                    '${bs}',
+                    '${bodyTemp}',
+                    '${heartRate}'
+                )"
+                style="
+                    background:#167c80;
+                    color:white;
+                    border:none;
+                    padding:10px 18px;
+                    border-radius:8px;
+                    cursor:pointer;
+                    font-weight:bold;
+                "
+            >
+                Confirm & Predict
+            </button>
+
+        `;
+
+
+        chatBox.appendChild(dataMessage);
+
+
+        statusText.innerText =
+            "Please confirm the information before prediction.";
+
+    }
+
+
+    /* SEND DATA TO FLASK */
+
+    function predictHealth(
+        age,
+        systolic,
+        diastolic,
+        bs,
+        bodyTemp,
+        heartRate
+    ) {
+
+
+        statusText.innerText =
+            "🤖 AI is analyzing the health information...";
+
+
+        const form =
+            document.createElement("form");
+
+
+        form.method = "POST";
+
+        form.action = "/voice-predict";
+
+
+        const values = {
+
+            age: age,
+
+            systolic_bp: systolic,
+
+            diastolic_bp: diastolic,
+
+            bs: bs,
+
+            body_temp: bodyTemp,
+
+            heart_rate: heartRate
+
+        };
+
+
+        for (const key in values) {
+
+            const input =
+                document.createElement("input");
+
+
+            input.type = "hidden";
+
+            input.name = key;
+
+            input.value = values[key];
+
+
+            form.appendChild(input);
+
+        }
+
+
+        document.body.appendChild(form);
+
+
+        form.submit();
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Meri Asha | Assessment Result</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #F7F5FC;
+            color: #25243A;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        header {
+            height: 72px;
+
+            background: #FFFFFF;
+
+            border-bottom: 1px solid #E8E4F0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #25243A;
+
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+
+            background: #EAE5F7;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 27px;
+        }
+
+        nav a {
+            text-decoration: none;
+
+            color: #77748A;
+
+            font-size: 13px;
+
+            transition: .2s;
+        }
+
+        nav a:hover {
+            color: #5B4B8A;
+        }
+
+        .nav-button {
+            background: #5B4B8A;
+
+            color: white !important;
+
+            padding: 10px 17px;
+
+            border-radius: 9px;
+        }
+
+
+        /* ================= PAGE ================= */
+
+        .page {
+            max-width: 950px;
+
+            margin: auto;
+
+            padding: 55px 25px 70px;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .heading {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+
+            background: #EAE5F7;
+
+            color: #5B4B8A;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: .7px;
+
+            margin-bottom: 14px;
+        }
+
+        .heading h1 {
+            color: #25243A;
+
+            font-size: 35px;
+
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #77748A;
+
+            font-size: 13px;
+        }
+
+
+        /* ================= RESULT CARD ================= */
+
+        .result-card {
+            background: #FFFFFF;
+
+            border: 1px solid #E3DEED;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px rgba(37,36,58,.08);
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= RESULT STATUS ================= */
+
+        .status-area {
+            padding: 38px 30px;
+
+            text-align: center;
+        }
+
+        .status-icon {
+            width: 68px;
+            height: 68px;
+
+            border-radius: 50%;
+
+            margin: 0 auto 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+        }
+
+        .status-label {
+            font-size: 10px;
+
+            color: #898594;
+
+            letter-spacing: 1px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .risk-title {
+            font-size: 30px;
+
+            font-weight: 750;
+
+            margin-bottom: 10px;
+        }
+
+        .message {
+            max-width: 590px;
+
+            margin: auto;
+
+            color: #77748A;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+
+        /* ================= RISK COLOURS ================= */
+
+        /* Low Risk */
+
+        .low .status-icon {
+            background: #E2F2E7;
+
+            color: #45A66F;
+        }
+
+        .low .risk-title {
+            color: #3D8C60;
+        }
+
+
+        /* Mid Risk */
+
+        .mid .status-icon {
+            background: #FFF0D8;
+
+            color: #D99A3D;
+        }
+
+        .mid .risk-title {
+            color: #C4872F;
+        }
+
+
+        /* High Risk */
+
+        .high .status-icon {
+            background: #F9E1E3;
+
+            color: #D85C62;
+        }
+
+        .high .risk-title {
+            color: #C74C55;
+        }
+
+
+        /* ================= DETAILS ================= */
+
+        .details {
+            border-top: 1px solid #ECE8F0;
+
+            padding: 27px 30px;
+        }
+
+        .details-heading {
+            margin-bottom: 18px;
+        }
+
+        .details-heading h2 {
+            color: #35334C;
+
+            font-size: 15px;
+
+            margin-bottom: 4px;
+        }
+
+        .details-heading p {
+            color: #9995A3;
+
+            font-size: 10px;
+        }
+
+        .readings {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+        .reading {
+            background: #F8F7FB;
+
+            border: 1px solid #ECE8F1;
+
+            border-radius: 12px;
+
+            padding: 15px;
+        }
+
+        .reading-name {
+            display: block;
+
+            color: #8C8998;
+
+            font-size: 9px;
+
+            margin-bottom: 7px;
+        }
+
+        .reading-value {
+            color: #403D58;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .reading-unit {
+            color: #9995A3;
+
+            font-size: 8px;
+
+            margin-left: 2px;
+        }
+
+
+        /* ================= GUIDANCE ================= */
+
+        .guidance {
+            margin-top: 20px;
+
+            background: #F5EDE8;
+
+            border: 1px solid #EEDDD2;
+
+            border-radius: 14px;
+
+            padding: 18px;
+        }
+
+        .guidance h3 {
+            color: #805C4B;
+
+            font-size: 12px;
+
+            margin-bottom: 7px;
+        }
+
+        .guidance p {
+            color: #756C68;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+
+        /* ================= ACTIONS ================= */
+
+        .actions {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+        .button {
+            text-decoration: none;
+
+            padding: 12px 20px;
+
+            border-radius: 9px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            transition: .2s;
+        }
+
+        .primary {
+            background: #5B4B8A;
+
+            color: white;
+
+            box-shadow:
+                0 7px 18px rgba(91,75,138,.16);
+        }
+
+        .primary:hover {
+            background: #4B3D76;
+
+            transform: translateY(-2px);
+        }
+
+        .secondary {
+            background: white;
+
+            color: #5B4B8A;
+
+            border: 1px solid #DDD7EA;
+        }
+
+        .secondary:hover {
+            background: #F1EEF7;
+        }
+
+
+        /* ================= DISCLAIMER ================= */
+
+        .disclaimer {
+            text-align: center;
+
+            color: #9995A3;
+
+            font-size: 9px;
+
+            line-height: 1.6;
+
+            max-width: 680px;
+
+            margin: 22px auto 0;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #25243A;
+
+            color: #BDB9C9;
+
+            text-align: center;
+
+            padding: 28px;
+
+            font-size: 11px;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                display: none;
+            }
+
+            .page {
+                padding: 40px 15px 50px;
+            }
+
+            .readings {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .button {
+                text-align: center;
+            }
+
+            .heading h1 {
+                font-size: 29px;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .readings {
+                grid-template-columns: 1fr;
+            }
+
+            .status-area {
+                padding: 30px 20px;
+            }
+
+            .details {
+                padding: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🌿
+        </div>
+
+        Meri Asha
+
+    </div>
+
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/assessment">
+            Assessment
+        </a>
+
+        <a href="/analytics">
+            Analytics
+        </a>
+
+        <a href="/assistant">
+            Voice Assistant
+        </a>
+
+        <a href="/assessment"
+           class="nav-button">
+
+            New Assessment
+
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="page">
+
+
+    <div class="heading">
+
+        <div class="eyebrow">
+            ASSESSMENT COMPLETE
+        </div>
+
+        <h1>
+            Health Assessment Result
+        </h1>
+
+        <p>
+            Review the assessment summary below.
+        </p>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div class="result-card">
+
+
+        <!--
+
+        We use the Flask "risk" value to determine
+        the displayed result.
+
+        -->
+
+        <div class="status-area
+            {% if risk == 'Low Risk' %}
+                low
+            {% elif risk == 'Mid Risk' %}
+                mid
+            {% else %}
+                high
+            {% endif %}
+        ">
+
+
+            <div class="status-icon">
+
+                {{ icon }}
+
+            </div>
+
+
+            <div class="status-label">
+
+                ASSESSMENT RESULT
+
+            </div>
+
+
+            <div class="risk-title">
+
+                {{ risk }}
+
+            </div>
+
+
+            <p class="message">
+
+                {{ message }}
+
+            </p>
+
+
+        </div>
+
+
+        <!-- ================= READINGS ================= -->
+
+        <div class="details">
+
+
+            <div class="details-heading">
+
+                <h2>
+                    Recorded Health Parameters
+                </h2>
+
+                <p>
+                    Values used for this assessment
+                </p>
+
+            </div>
+
+
+            <div class="readings">
+
+
+                <div class="reading">
+
+                    <span class="reading-name">
+                        Age
+                    </span>
+
+                    <span class="reading-value">
+                        {{ age }}
+                    </span>
+
+                    <span class="reading-unit">
+                        years
+                    </span>
+
+                </div>
+
+
+                <div class="reading">
+
+                    <span class="reading-name">
+                        Blood Pressure
+                    </span>
+
+                    <span class="reading-value">
+                        {{ systolic_bp }}/{{ diastolic_bp }}
+                    </span>
+
+                    <span class="reading-unit">
+                        mmHg
+                    </span>
+
+                </div>
+
+
+                <div class="reading">
+
+                    <span class="reading-name">
+                        Blood Sugar
+                    </span>
+
+                    <span class="reading-value">
+                        {{ bs }}
+                    </span>
+
+                    <span class="reading-unit">
+                        mmol/L
+                    </span>
+
+                </div>
+
+
+                <div class="reading">
+
+                    <span class="reading-name">
+                        Body Temperature
+                    </span>
+
+                    <span class="reading-value">
+                        {{ body_temp }}
+                    </span>
+
+                    <span class="reading-unit">
+                        °F
+                    </span>
+
+                </div>
+
+
+                <div class="reading">
+
+                    <span class="reading-name">
+                        Heart Rate
+                    </span>
+
+                    <span class="reading-value">
+                        {{ heart_rate }}
+                    </span>
+
+                    <span class="reading-unit">
+                        BPM
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ================= GUIDANCE ================= -->
+
+            <div class="guidance">
+
+                <h3>
+                    Health Guidance
+                </h3>
+
+                <p>
+
+                    This result is intended to support
+                    preliminary health assessment.
+                    It should not be considered a diagnosis.
+                    For concerns or unusual symptoms,
+                    appropriate healthcare guidance should
+                    be sought.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= ACTION BUTTONS ================= -->
+
+    <div class="actions">
+
+
+        <a href="/assessment"
+           class="button primary">
+
+            ← New Assessment
+
+        </a>
+
+
+        <a href="/analytics"
+           class="button secondary">
+
+            View Analytics
+
+        </a>
+
+
+        <a href="/"
+           class="button secondary">
+
+            Back Home
+
+        </a>
+
+
+    </div>
+
+
+    <p class="disclaimer">
+
+        Meri Asha is a decision-support platform.
+        The assessment does not replace professional
+        medical evaluation, diagnosis, or treatment.
+
+    </p>
+
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    © 2026 Meri Asha · Maternal Health Support Platform
+
+</footer>
+
+
+</body>
+
+</html>
